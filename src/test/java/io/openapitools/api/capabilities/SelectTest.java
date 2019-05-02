@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class SelectTest {
 
@@ -174,14 +173,5 @@ public class SelectTest {
         assertEquals(0, selections.size());
         selections = Select.getSelections("v::g|f::j|u::iio|3::4");
         assertEquals(0, selections.size());
-    }
-    
-    @Test
-    public void testWildcards() {
-        List<Select> selections = Select.getSelections("name::*loan|name::savings*");
-        assertEquals(2, selections.size());
-        for (Select sel : selections) {
-            assertTrue(sel.getValue().equals("*loan") || sel.getValue().equals("savings*"));
-        }
     }
 }
