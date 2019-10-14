@@ -19,9 +19,7 @@ import java.util.Optional;
  */
 public final class Element {
 
-    /**
-     * Maximum number of elements to return - currently 500
-     */
+    /** Maximum number of elements to return - currently 500 */
     public static final int MAX_ELEMENTS = 500;
 
     private final int start;
@@ -49,18 +47,27 @@ public final class Element {
     /**
      * A span of elements.
      * The syntax supported is given by the regexp: {@code "^([0-9]+\\|[0-9]+)$"}
-     *
      * @param element a string that follows the syntax given by the regexp above
      * @return an element set with a "include from element (start)" to "last included element (end)"
      */
     public static Optional<Element> getElement(String element) {
-        if (null != element && element.matches("^([0-9]+\\|[0-9]+)$")) {
-            String result = Sanitizer.sanitize(element, false);
-            int pipe = result.indexOf('|');
-            int s = Integer.parseInt(result.substring(0, pipe));
-            int e = Integer.parseInt(result.substring(pipe + 1));
-            if (e >= s && s > 0 && e - s < MAX_ELEMENTS) {
-                return Optional.of(new Element(s, e));
+        if (null == element) {
+            return Optional.empty();
+        }
+        if (!element.matches("^([0-9]+\\|[0-9]+)$")) {
+            return Optional.empty();
+        }
+        String result = Sanitizer.sanitize(element, false);
+        int pipe = result.indexOf('|');
+        if (pipe > 0) {
+            try {
+                int s = Integer.parseInt(result.substring(0, pipe));
+                int e = Integer.parseInt(result.substring(pipe + 1));
+                if (e >= s && s > 0 && e - s < MAX_ELEMENTS) {
+                    return Optional.of(new Element(s, e));
+                }
+            } catch (NumberFormatException e) {
+                return Optional.empty();
             }
         }
         return Optional.empty();
