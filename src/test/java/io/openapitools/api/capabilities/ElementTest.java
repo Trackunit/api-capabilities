@@ -32,11 +32,7 @@ public class ElementTest {
         assertEquals(Optional.empty(), element);
         element = Element.getElement("1|+1");
         assertEquals(Optional.empty(), element);
-        element = Element.getElement("4|4");
-        assertEquals(Optional.empty(), element);
         element = Element.getElement("4|3");
-        assertEquals(Optional.empty(), element);
-        element = Element.getElement("501|501");
         assertEquals(Optional.empty(), element);
         element = Element.getElement("1|501");
         assertEquals(Optional.empty(), element);
