@@ -18,9 +18,7 @@ public class ElementTest {
 
     @Test
     public void testNonValidInput(){
-        Optional<Element> element = Element.getElement("3");
-        assertEquals(Optional.empty(), element);
-        element = Element.getElement("0|4");
+        Optional<Element> element = Element.getElement("0|4");
         assertEquals(Optional.empty(), element);
         element = Element.getElement("|0");
         assertEquals(Optional.empty(), element);
@@ -69,6 +67,12 @@ public class ElementTest {
         element = Element.getElement("501|502");
         assertEquals(501, element.isPresent() ? element.get().getStart() : Optional.empty());
         assertEquals(502, element.isPresent() ? element.get().getEnd() : Optional.empty());
+        element = Element.getElement("501");
+        assertEquals(501, element.isPresent() ? element.get().getStart() : Optional.empty());
+        assertEquals(501, element.isPresent() ? element.get().getEnd() : Optional.empty());
+        element = Element.getElement("501|501");
+        assertEquals(501, element.isPresent() ? element.get().getStart() : Optional.empty());
+        assertEquals(501, element.isPresent() ? element.get().getEnd() : Optional.empty());
     }
 
 }
