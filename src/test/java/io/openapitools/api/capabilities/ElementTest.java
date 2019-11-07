@@ -20,6 +20,8 @@ public class ElementTest {
     public void testNonValidInput(){
         Optional<Element> element = Element.getElement("0|4");
         assertEquals(Optional.empty(), element);
+        element = Element.getElement("0");
+        assertEquals(Optional.empty(), element);
         element = Element.getElement("|0");
         assertEquals(Optional.empty(), element);
         element = Element.getElement("|1");
