@@ -70,9 +70,6 @@ public class ElementTest {
         element = Element.getElement("501");
         assertEquals(501, element.isPresent() ? element.get().getStart() : Optional.empty());
         assertEquals(501, element.isPresent() ? element.get().getEnd() : Optional.empty());
-        element = Element.getElement("501|501");
-        assertEquals(501, element.isPresent() ? element.get().getStart() : Optional.empty());
-        assertEquals(501, element.isPresent() ? element.get().getEnd() : Optional.empty());
     }
 
 }
