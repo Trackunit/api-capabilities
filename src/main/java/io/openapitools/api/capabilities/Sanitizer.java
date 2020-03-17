@@ -1,12 +1,16 @@
 package io.openapitools.api.capabilities;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * API input sanitizer in a rudimental version.
  */
 public final class Sanitizer {
-    private static final String[] SUSPICIOUS_CONTENT = {"\'", "\"", "\\", "%", "\\%", "\\_", "\0", "\b", "\n", "\t", "\r", "\\Z", "?", "#"};
+    private static final String[] SUSPICIOUS_CHARACTERS = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
+    private static final String[] SUSPICIOUS_CHARACTER_SEQUENCES = {"\\%", "\\_", "\\Z" };
 
     private Sanitizer() {
         // reduce scope to avoid default construction
@@ -17,8 +21,13 @@ public final class Sanitizer {
      *
      * @return String.
      */
-    static String regexQuotedSuspiciousContent() {
-        return Pattern.quote(String.join("", SUSPICIOUS_CONTENT));
+    static String regexQuotedSuspiciousCharacters() {
+        return Pattern.quote(String.join("", SUSPICIOUS_CHARACTERS));
+    }
+
+    static String regexQuotedSuspiciousCharacterSequences() {
+        List<String> collect = Arrays.stream(SUSPICIOUS_CHARACTER_SEQUENCES).map(Pattern::quote).map(charSeq -> "^(" + charSeq + ")").collect(Collectors.toList());
+        return String.join("|", collect);
     }
 
     /**
@@ -41,7 +50,12 @@ public final class Sanitizer {
         if (!allowNumbers) {
             result = result.matches(".*\\d.*") ? "" : result;
         }
-        for (String s : SUSPICIOUS_CONTENT) {
+        for (String s : SUSPICIOUS_CHARACTERS) {
+            if (result.contains(s)) {
+                return "";
+            }
+        }
+        for (String s : SUSPICIOUS_CHARACTER_SEQUENCES) {
             if (result.contains(s)) {
                 return "";
             }
