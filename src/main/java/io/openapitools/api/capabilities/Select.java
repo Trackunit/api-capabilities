@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * key for an account.
  */
 public final class Select {
-    private static final String PAIR = "([a-z][a-zA-Z_0-9]*)::([^|" + Sanitizer.regexQuotedSuspiciousCharacters() + "]+)";
+    private static final String PAIR = "([a-z][a-zA-Z_0-9]*)::([^|" + Sanitizer.regexQuotedSuspiciousContent() + "]+)";
     private static final Pattern REGEX = Pattern.compile("^" + PAIR + "(\\|" + PAIR + ")*");
 
     private static final CapabilityParser<Select> PARSER = new CapabilityParser<>(REGEX, Select::parseToken);

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * API input sanitizer in a rudimental version.
  */
 public final class Sanitizer {
-    private static final String[] SUSPICIOUS_CHARACTERS = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
+    private static final String[] SUSPICIOUS_CONTENT  = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
 
     private Sanitizer() {
         // reduce scope to avoid default construction
@@ -20,8 +20,8 @@ public final class Sanitizer {
      *
      * @return String.
      */
-    static String regexQuotedSuspiciousCharacters() {
-        return Pattern.quote(String.join("", SUSPICIOUS_CHARACTERS));
+    static String regexQuotedSuspiciousContent() {
+        return Pattern.quote(String.join("", SUSPICIOUS_CONTENT ));
     }
 
     /**
