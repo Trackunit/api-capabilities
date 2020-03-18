@@ -1,15 +1,12 @@
 package io.openapitools.api.capabilities;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * API input sanitizer in a rudimental version.
  */
 public final class Sanitizer {
-    private static final String[] SUSPICIOUS_CONTENT  = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
+    private static final String[] SUSPICIOUS_CONTENT = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
 
     private Sanitizer() {
         // reduce scope to avoid default construction
