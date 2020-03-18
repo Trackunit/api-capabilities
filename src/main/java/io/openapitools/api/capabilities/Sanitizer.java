@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
  */
 public final class Sanitizer {
     private static final String[] SUSPICIOUS_CHARACTERS = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
-    private static final String[] SUSPICIOUS_CHARACTER_SEQUENCES = {"\\%", "\\_", "\\Z" };
 
     private Sanitizer() {
         // reduce scope to avoid default construction
@@ -23,11 +22,6 @@ public final class Sanitizer {
      */
     static String regexQuotedSuspiciousCharacters() {
         return Pattern.quote(String.join("", SUSPICIOUS_CHARACTERS));
-    }
-
-    static String regexQuotedSuspiciousCharacterSequences() {
-        List<String> collect = Arrays.stream(SUSPICIOUS_CHARACTER_SEQUENCES).map(Pattern::quote).map(charSeq -> "^(" + charSeq + ")").collect(Collectors.toList());
-        return String.join("|", collect);
     }
 
     /**
@@ -51,11 +45,6 @@ public final class Sanitizer {
             result = result.matches(".*\\d.*") ? "" : result;
         }
         for (String s : SUSPICIOUS_CHARACTERS) {
-            if (result.contains(s)) {
-                return "";
-            }
-        }
-        for (String s : SUSPICIOUS_CHARACTER_SEQUENCES) {
             if (result.contains(s)) {
                 return "";
             }
