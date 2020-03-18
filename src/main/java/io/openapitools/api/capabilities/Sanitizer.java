@@ -21,7 +21,7 @@ public final class Sanitizer {
      * @return String.
      */
     static String regexQuotedSuspiciousContent() {
-        return Pattern.quote(String.join("", SUSPICIOUS_CONTENT ));
+        return Pattern.quote(String.join("", SUSPICIOUS_CONTENT));
     }
 
     /**
@@ -44,7 +44,7 @@ public final class Sanitizer {
         if (!allowNumbers) {
             result = result.matches(".*\\d.*") ? "" : result;
         }
-        for (String s : SUSPICIOUS_CHARACTERS) {
+        for (String s : SUSPICIOUS_CONTENT) {
             if (result.contains(s)) {
                 return "";
             }
