@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * API input sanitizer in a rudimental version.
  */
 public final class Sanitizer {
-    private static final String[] SUSPICIOUS_CONTENT = {"\'", "\"", "\\", "%", "\0", "\b", "\n", "\t", "\r", "?", "#"};
+    private static final char[] SUSPICIOUS_CONTENT = {'\'', '\"', '\\', '%', '\0', '\b', '\n', '\t', '\r', '?', '#'};
 
     private Sanitizer() {
         // reduce scope to avoid default construction
@@ -18,7 +18,7 @@ public final class Sanitizer {
      * @return String.
      */
     static String regexQuotedSuspiciousContent() {
-        return Pattern.quote(String.join("", SUSPICIOUS_CONTENT));
+        return Pattern.quote(new StringBuilder().append(SUSPICIOUS_CONTENT).toString());
     }
 
     /**
@@ -41,8 +41,8 @@ public final class Sanitizer {
         if (!allowNumbers) {
             result = result.matches(".*\\d.*") ? "" : result;
         }
-        for (String s : SUSPICIOUS_CONTENT) {
-            if (result.contains(s)) {
+        for (char c: SUSPICIOUS_CONTENT) {
+            if (result.contains(new Character(c).toString())) {
                 return "";
             }
         }
