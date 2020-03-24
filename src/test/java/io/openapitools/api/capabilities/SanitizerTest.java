@@ -59,4 +59,15 @@ public class SanitizerTest {
         assertEquals("", Sanitizer.sanitize("This is not ok input 2 '", true));
         assertEquals("", Sanitizer.sanitize("This is not ok input 2 'OR 1", true));
     }
+
+    @Test
+    public void testCharSequence() {
+        assertEquals("", Sanitizer.sanitize("this is not okay \\%",true));
+        assertEquals("", Sanitizer.sanitize("this is not okay \\_",true));
+        assertEquals("", Sanitizer.sanitize("this is \\Z not okay ",true));
+        assertEquals("", Sanitizer.sanitize("this is not okay \\Z",true));
+
+        assertEquals("this is okay Z", Sanitizer.sanitize("this is okay Z",true));
+        assertEquals("this is _ okay ", Sanitizer.sanitize("this is _ okay ",true));
+    }
 }
