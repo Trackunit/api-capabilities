@@ -184,4 +184,10 @@ public class SelectTest {
             assertTrue(sel.getValue().equals("*loan") || sel.getValue().equals("savings*"));
         }
     }
+
+    @Test
+    public void testZ(){
+        assertEquals(1,Select.getSelections("name::asdZ").size());
+        assertEquals(0,Select.getSelections("name::asd\\Z").size());
+    }
 }
