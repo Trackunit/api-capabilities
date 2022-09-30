@@ -36,14 +36,14 @@
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>codeartifact</id>
+            <url>https://trackunit-725443896225.d.codeartifact.eu-west-1.amazonaws.com/maven/releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>codeartifact-snapshot</id>
+            <url>https://trackunit-725443896225.d.codeartifact.eu-west-1.amazonaws.com/maven/snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <properties>
